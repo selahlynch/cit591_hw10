@@ -6,9 +6,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class LayoutTest {
-
+	int[][] array2D = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+	int[] array1D = {1, 2, 3};
+	Layout layout;
+	
 	@Before
 	public void setUp() throws Exception {
+		layout = new Layout(array2D);
 	}
 
 	@Test
@@ -22,17 +26,24 @@ public class LayoutTest {
 
 	@Test
 	public void testLayoutIntArrayArray() {
-		fail("Not yet implemented");
+		layout = new Layout(array2D);
+		assertEquals(array2D, layout.data);
 	}
 
 	@Test
 	public void testLayoutIntArray() {
-		fail("Not yet implemented");
+		layout = new Layout(array1D);
+		assertEquals(1, layout.data.length);
+		assertEquals(array1D, layout.data[0]);
 	}
 
 	@Test
 	public void testLayoutInt() {
-		fail("Not yet implemented");
+		layout = new Layout(3);
+		assertEquals(1, layout.data.length);
+		for (int i = 0; i < 3; i++){
+			assertEquals(i + 1, layout.data[0][i]);
+		}
 	}
 
 	@Test
@@ -82,12 +93,12 @@ public class LayoutTest {
 
 	@Test
 	public void testRowCount() {
-		fail("Not yet implemented");
+		assertEquals(3 , layout.rowCount());
 	}
 
 	@Test
 	public void testColumnCount() {
-		fail("Not yet implemented");
+		assertEquals(3 , layout.columnCount());
 	}
 
 	@Test
