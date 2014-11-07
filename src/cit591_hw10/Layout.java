@@ -1,15 +1,25 @@
 package cit591_hw10;
 
 public class Layout {
+	
+	final private int[][] data;
+	
 	public Layout(int[][] array){
-		
+		data = array;
 	}
+	
 	public Layout(int[] array){
-		
+		data = new int[1][];
+		data[0] = array;
 	}
 	
 	public Layout(int length){
-		
+		int[] array = new int[length];
+		for(int i=0; i<length; i++){
+			array[i] = i+1;
+		}
+		data = new int[1][];
+		data[0] = array;
 	}
 	
 	public Layout reverse() {
