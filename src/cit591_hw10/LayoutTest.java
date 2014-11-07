@@ -6,13 +6,23 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class LayoutTest {
+	
 	int[][] array2D = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 	int[] array1D = {1, 2, 3};
+	int[][] array2DEmpty = {{}, {}};
+	int[] array1DEmpty = {};
+	
 	Layout layout;
+	Layout l1D;
+	Layout l2DEmpty;
+	Layout l1DEmpty;
 	
 	@Before
 	public void setUp() throws Exception {
 		layout = new Layout(array2D);
+		l1D = new Layout(array1D);
+		l2DEmpty = new Layout(array1DEmpty);
+		l1DEmpty = new Layout(array1DEmpty);
 	}
 
 	@Test
@@ -94,11 +104,17 @@ public class LayoutTest {
 	@Test
 	public void testRowCount() {
 		assertEquals(3 , layout.rowCount());
+		assertEquals(1, l1D.rowCount());
+		assertEquals(2, l2DEmpty.rowCount());
+		assertEquals(1, l1DEmpty.rowCount());
 	}
 
 	@Test
 	public void testColumnCount() {
-		assertEquals(3 , layout.columnCount());
+		assertEquals(3, layout.columnCount());
+		assertEquals(3, l1D.columnCount());
+		assertEquals(0, l2DEmpty.columnCount());
+		assertEquals(0, l1DEmpty.columnCount());
 	}
 
 	@Test
