@@ -24,25 +24,37 @@ public class Layout {
 		data[0] = array;
 	}
 	
+	//selah todo
 	public Layout reverse() {
 		return null;
 	}
+
+	//selah
 	public Layout rotateRight() {
 		return null;		
 	}
 
+	//selah
 	public Layout rotateLeft() {
 		return null;		
 	}
+
+	//selah
 	public Layout transpose() {
 		return null;		
 	}
+
+	//selah
 	public Layout ravel(int n) {
 				
 	}
+	
+	//selah
 	public Layout unravel() {
 		return null;		
 	}
+	
+	//selah
 	public Layout reshape(int n) {
 		return null;		
 	}
