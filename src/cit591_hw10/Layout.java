@@ -2,7 +2,7 @@ package cit591_hw10;
 
 public class Layout {
 	
-	final private int[][] data;
+	final int[][] data;
 	
 	public Layout(int[][] array){
 		data = array;
@@ -36,7 +36,7 @@ public class Layout {
 		return null;		
 	}
 	public Layout ravel(int n) {
-		return null;		
+				
 	}
 	public Layout unravel() {
 		return null;		
@@ -51,10 +51,10 @@ public class Layout {
 		return null;		
 	}
 	public int rowCount() {
-		return null;		
+		return data.length;		
 	}
 	public int columnCount(){
-		return null;		
+		return data[0].length;		
 	}
 	public Layout rows(int firstRow, int lastRow) {
 		return null;	
