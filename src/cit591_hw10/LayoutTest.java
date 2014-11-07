@@ -13,7 +13,11 @@ public class LayoutTest {
 
 	@Test
 	public void testHashCode() {
-		fail("Not yet implemented");
+		int[] array = {1,2,6};
+		Layout l = new Layout(array);
+		int[] array2 = {1,2,6};
+		Layout l2 = new Layout(array2);
+		assertEquals(l.hashCode(), l.hashCode());
 	}
 
 	@Test
@@ -108,7 +112,13 @@ public class LayoutTest {
 
 	@Test
 	public void testEqualsObject() {
-		fail("Not yet implemented");
+		int[] array1 = {1,2,6};
+		Layout l1 = new Layout(array1);
+		int[] array2 = {1,2,6};
+		Layout l2 = new Layout(array2);
+		assertEquals(l1,l2);
+		assertTrue(l1.equals(l2));
+		//assertTrue(l1==l2); //not supposed to work, only for references
 	}
 
 	@Test

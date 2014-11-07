@@ -1,8 +1,10 @@
 package cit591_hw10;
 
+import java.util.Arrays;
+
 public class Layout {
 	
-	final private int[][] data;
+	final public int[][] data;
 	
 	public Layout(int[][] array){
 		data = array;
@@ -68,15 +70,41 @@ public class Layout {
 	public Layout replace(Layout layout, int row, int column) {
 		return null;
 	}
+	
+	
+	
 	@Override
 	public boolean equals(Object o){
-		return null;
+		if(!(o instanceof Layout)){
+			return false;
+		}
+		Layout l2 = (Layout)o;
+		if(data.length != l2.data.length){
+			return false;
+		}
+		//at this point we assume that array[0] exists
+		if(data[0].length != l2.data[0].length){
+			return false;
+		}
+		for(int i=0; i<data.length; i++){
+			for(int j=0; j<data[0].length; j++){
+				//and every value in those arrays.				
+				if(data[i][j] != l2.data[i][j]){
+					return false;
+				}
+			}
+		}
+
+		return true;
 	}
 
 	@Override
 	public int hashCode(){
-		return null;
+		return Arrays.deepHashCode(data);
 	}
+
+	
+	
 	public int[] toArray1D() {
 		return null;
 	}
