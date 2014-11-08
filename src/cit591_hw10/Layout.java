@@ -24,29 +24,74 @@ public class Layout {
 		data[0] = array;
 	}
 	
-	//selah todo
+	public void print(){
+		int rows = rowCount();
+		int columns = columnCount();
+		for(int i=0; i<rows; i++){		
+			for(int j=0; j<columns; j++){
+				System.out.printf("%d ", data[i][j]);
+			}
+			System.out.print("\n");
+		}
+	}
+	
+	//take each row and reverse it
+	//making the first column last and the last column first
 	public Layout reverse() {
-		return null;
+		int rows = rowCount(); 
+		int columns = columnCount(); 
+		int[][] data_reversed = new int[rows][columns];
+		for(int i=0; i<rows; i++){		
+			for(int j=0; j<columns; j++){
+				int reverse_index = (columns - j) - 1;
+				data_reversed[i][reverse_index] = data[i][j]; 
+			}
+		}
+		return new Layout(data_reversed);
 	}
 
-	//selah
 	public Layout rotateRight() {
-		return null;		
+		//lol
+		return rotateLeft().rotateLeft().rotateLeft();
 	}
 
-	//selah
+	
 	public Layout rotateLeft() {
-		return null;		
+		int rowCount = rowCount(); 
+		int columnCount = columnCount(); 
+		
+		int[][] dataRotated = new int [columnCount][rowCount]; 
+
+		
+		for(int i=0; i<rowCount; i++){		
+			for(int j=0; j<columnCount; j++){
+				int jReversed = columnCount - j - 1;
+				dataRotated[jReversed][i] = data[i][j]; 
+			}
+		}
+
+		return new Layout(dataRotated);
 	}
 
 	//selah
 	public Layout transpose() {
-		return null;		
+		int rowCount = rowCount(); 
+		int columnCount = columnCount(); 
+		
+		int[][] dataRotated = new int [columnCount][rowCount]; 
+
+		for(int i=0; i<rowCount; i++){		
+			for(int j=0; j<columnCount; j++){
+				dataRotated[j][i] = data[i][j]; 
+			}
+		}
+
+		return new Layout(dataRotated);
 	}
 
 	//selah
 	public Layout ravel(int n) {
-				
+			return null;	
 	}
 	
 	//selah
@@ -123,8 +168,9 @@ public class Layout {
 	public int[][] toArray2D() {
 		return null;
 	}
+	
 	public int at(int row, int column) {
-		return null;
+		return -1;
 	}
 
 }

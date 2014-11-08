@@ -58,22 +58,78 @@ public class LayoutTest {
 
 	@Test
 	public void testReverse() {
-		fail("Not yet implemented");
+		int[][] arrayf = {{1,2,6},{1,6,9}};
+		int[][] arrayr = {{6,2,1},{9,6,1}};
+		Layout lf = new Layout(arrayf);
+		Layout lr = new Layout(arrayr);
+		assertTrue(lr.equals(lf.reverse()));
+		assertEquals(lr, lf.reverse());
 	}
 
 	@Test
 	public void testRotateRight() {
-		fail("Not yet implemented");
+		
+		int[][] array = {
+			{1,2,3,4},
+			{5,6,7,8},
+			{9,10,11,12},
+		};
+
+		int[][] rotatedArray = {
+			{9,5,1},
+			{10,6,2},
+			{11,7,3},
+			{12,8,4}	
+		};
+		Layout l = new Layout(array);
+		Layout lRotated = new Layout(rotatedArray);
+		
+		assertEquals(lRotated, l.rotateRight());
 	}
 
 	@Test
 	public void testRotateLeft() {
-		fail("Not yet implemented");
+
+		int[][] array = {
+			{9,5,1},
+			{10,6,2},
+			{11,7,3},
+			{12,8,4}	
+		};
+
+		int[][] rotatedArray = {
+			{1,2,3,4},
+			{5,6,7,8},
+			{9,10,11,12},
+		};
+		
+		Layout l = new Layout(array);
+		Layout lRotated = new Layout(rotatedArray);
+		
+		assertEquals(lRotated, l.rotateLeft());
+
 	}
 
 	@Test
 	public void testTranspose() {
-		fail("Not yet implemented");
+		int[][] array = {
+			{1,2,3,4},
+			{5,6,7,8},
+			{9,10,11,12},
+		};
+
+		int[][] transposedArray = {
+			{1,5,9},
+			{2,6,10},
+			{3,7,11},
+			{4,8,12}	
+		};
+		
+		Layout l = new Layout(array);
+		Layout lTransposed = new Layout(transposedArray);
+
+		assertEquals(lTransposed, l.transpose());
+
 	}
 
 	@Test
@@ -139,12 +195,16 @@ public class LayoutTest {
 
 	@Test
 	public void testEqualsObject() {
-		int[] array1 = {1,2,6};
+		int[] array1 = {1,2,6,7};
 		Layout l1 = new Layout(array1);
-		int[] array2 = {1,2,6};
+		int[] array2 = {1,2,6,7};
 		Layout l2 = new Layout(array2);
+		int[][] array3 = {{1,2,6},{1,6,9}};
+		Layout l3 = new Layout(array3);
 		assertEquals(l1,l2);
+		//assertEquals(l1,l3); //this should NOT work
 		assertTrue(l1.equals(l2));
+		assertFalse(l1.equals(l3));
 		//assertTrue(l1==l2); //not supposed to work, only for references
 	}
 
