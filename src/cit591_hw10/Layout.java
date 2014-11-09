@@ -6,16 +6,23 @@ public class Layout {
 	
 	final int[][] data;
 	
+	//passed
 	public Layout(int[][] array){
 		data = array;
 	}
 	
+	//passed
 	public Layout(int[] array){
 		data = new int[1][];
 		data[0] = array;
 	}
 	
+	//passed
 	public Layout(int length){
+		if (length < 0) {
+			throw new IllegalArgumentException("Array length must be positive");
+		}
+		
 		int[] array = new int[length];
 		for(int i=0; i<length; i++){
 			array[i] = i+1;
@@ -58,33 +65,120 @@ public class Layout {
 	public Layout reshape(int n) {
 		return null;		
 	}
+	
+	//Dichen, passed!
 	public Layout join(Layout layout) {
-		return null;		
+		if (layout.rowCount() != this.rowCount()) {
+			throw new IllegalArgumentException("The row numbers are different!");
+		}
+		
+		int row = this.rowCount();
+		int col1 = this.columnCount();
+		int col2 = layout.columnCount();
+		int col = col1 + col2;
+		int[][] array = new int[row][col];
+		
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < col1; j++){
+				array[i][j] = this.at(i, j);
+			}
+			for (int j = 0; j < col2; j++) {
+				array[i][j + col1] = layout.at(i,  j);
+			}
+		}
+		
+		Layout joined = new Layout(array);
+		return joined;
 	}
+	
+	//Dichen, passed!
 	public Layout stack(Layout layout) {
-		return null;		
+		if (layout.columnCount() != this.columnCount()) {
+			throw new IllegalArgumentException("The column numbers are different!");
+		}	
+		
+		int row = this.rowCount() + layout.rowCount();
+		int[][] array = new int[row][columnCount()];
+		for (int i = 0; i < this.rowCount(); i++) {
+			System.arraycopy(data[i], 0, array[i], 0, columnCount());
+		}
+		
+		int[][] arrayLayout = layout.toArray2D();
+		for (int i = this.rowCount(); i < row; i++) {
+			System.arraycopy(arrayLayout[i - this.rowCount()], 0, array[i], 0, columnCount());
+		}
+		
+		return new Layout(array);
 	}
+	
+	//test passed!
 	public int rowCount() {
 		return data.length;		
 	}
+	
+	//test passed!
 	public int columnCount(){
 		return data[0].length;		
 	}
+	
+	//Dichen passed
 	public Layout rows(int firstRow, int lastRow) {
-		return null;	
+		if (firstRow > rowCount() || lastRow > rowCount()) {
+			throw new IllegalArgumentException("rows out of bond");	
+		} else if (firstRow < 0 || lastRow < 0) {
+			throw new IllegalArgumentException("rows must be non-negative");
+		} else if (lastRow < firstRow) {
+			throw new IllegalArgumentException("starting row is larger than ending row");
+		}
+		
+		//http://stackoverflow.com/questions/11001720/get-only-part-of-an-array-in-java
+		int[][] newArray = Arrays.copyOfRange(data, firstRow, lastRow + 1); 
+		return new Layout(newArray);
 	}
+	
+	//Dichen passed
 	public Layout columns(int firstColumn, int lastColumn) {
-		return null;	
+		if (firstColumn > columnCount() || lastColumn > columnCount()) {
+			throw new IllegalArgumentException("Columns out of bond");	
+		} else if (firstColumn < 0 || lastColumn < 0) {
+			throw new IllegalArgumentException("Columns must be non-negative");
+		} else if (lastColumn < firstColumn) {
+			throw new IllegalArgumentException("starting column is larger than ending column");
+		}
+		
+		int length = lastColumn - firstColumn + 1; // number of columns of copied array
+		int[][] newArray = new int[rowCount()][length];
+		for (int i = 0; i < rowCount(); i++) { //copy each row
+			System.arraycopy(data[i], firstColumn, newArray[i], 0, length);
+		} 
+		return new Layout(newArray);
 	}
+	
+	//Dichen passed
 	public Layout slice(int firstRow, int lastRow, int firstColumn, int lastColumn) {
-		return null;	
+		return this.rows(firstRow, lastRow).columns(firstColumn, lastColumn);	
 	}
+	
+	//Dichen passsed
 	public Layout replace(Layout layout, int row, int column) {
-		return null;
+		if (row > this.rowCount() || row < 0) {
+			throw new IllegalArgumentException("Rows out of bond");
+		} else if (column > this.columnCount() || column < 0) {
+			throw new IllegalArgumentException("Columns out of bond");	
+		} else if (row + layout.rowCount() > this.rowCount() || column + layout.columnCount() > this.columnCount()) {
+			throw new IllegalArgumentException("The parameter layout goes beyond the bounds of the recipient layout");
+		}
+
+		int[][] array = layout.toArray2D();  // input layout array
+		int[][] newArray = this.toArray2D(); // array to be exported
+		for (int i = 0; i < layout.rowCount(); i++) { //copy each row
+			System.arraycopy(array[i], 0, newArray[i + row], column, layout.columnCount());
+		} 
+		return new Layout(newArray);
 	}
 	
 	
-	
+	//Selah
 	@Override
 	public boolean equals(Object o){
 		if(!(o instanceof Layout)){
@@ -110,21 +204,39 @@ public class Layout {
 		return true;
 	}
 
+	//Selah
 	@Override
 	public int hashCode(){
 		return Arrays.deepHashCode(data);
 	}
 
-	
-	
+	//Dichen, requires unravel()
 	public int[] toArray1D() {
-		return null;
+		if (this.rowCount() <= 0) {
+			return null;
+		} //just in case
+		
+		else if (this.rowCount() > 1) {
+			return this.unravel().toArray1D();
+		} else {
+			int[] array1D = new int[this.columnCount()];
+			System.arraycopy( data, 0, array1D, 0, columnCount());
+			return array1D;
+		}
 	}
+	
+	//Dichen, passed!
 	public int[][] toArray2D() {
-		return null;
+		int[][] array = new int[rowCount()][columnCount()];
+		for (int i = 0; i < rowCount(); i++) {
+			System.arraycopy(data[i], 0, array[i], 0, columnCount());
+		}
+		return array;
 	}
+	
+	//Dichen, passed!
 	public int at(int row, int column) {
-		return null;
+		return data[row][column];
 	}
 
 }
