@@ -163,10 +163,26 @@ public class LayoutTest {
 		Layout l = new Layout(array);
 		Layout lRavelled = new Layout(ravelledArray);
 
-//		lRavelled.print();
-//		l.ravel(4).print();
-
 		assertEquals(lRavelled, l.ravel(4));
+	}
+	
+	@Test
+	public void testRavelException1(){
+		int[][] array2d = {
+				{1,2,3,4,5,6},
+				{7,8,9,10,11,12}
+		};
+		Layout l2d = new Layout(array2d);
+		exception.expect(IllegalArgumentException.class);
+		l2d.ravel(3);
+	}
+	
+	@Test
+	public void testRavelException2(){
+		int[][] array = {{1,2,3,4,5,6,7,8,9,10,11,12}};		
+		Layout l = new Layout(array);
+		exception.expect(IllegalArgumentException.class);
+		l.ravel(7);
 	}
 
 	@Test

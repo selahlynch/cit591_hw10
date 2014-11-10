@@ -99,7 +99,7 @@ public class Layout {
 		return new Layout(dataRotated);
 	}
 
-	//selah
+	//passed
 	public Layout ravel(int n) {
 
 		//check if this array is appropriate for ravelling
@@ -125,7 +125,7 @@ public class Layout {
 		return new Layout(ravelledData);	
 	}
 	
-	//selah
+	//passed
 	public Layout unravel() {
 
 		//initialize unravelled array
