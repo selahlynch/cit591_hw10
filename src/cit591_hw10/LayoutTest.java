@@ -154,12 +154,28 @@ public class LayoutTest {
 
 	@Test
 	public void testRavel() {
-		fail("Not yet implemented");
+		int[][] array = {{1,2,3,4,5,6,7,8,9,10,11,12}};
+		int[][] ravelledArray = {
+				{1,2,3,4},
+				{5,6,7,8},
+				{9,10,11,12}
+		};
+		Layout l = new Layout(array);
+		Layout lRavelled = new Layout(ravelledArray);
+		assertEquals(lRavelled, l);
 	}
 
 	@Test
 	public void testUnravel() {
-		fail("Not yet implemented");
+		int[][] array = {
+				{1,2,3,4},
+				{5,6,7,8},
+				{9,10,11,12}
+		};
+		int[][] unravelledArray = {{1,2,3,4,5,6,7,8,9,10,11,12}};
+		Layout l = new Layout(array);
+		Layout lUnravelled = new Layout(unravelledArray);
+		assertEquals(lUnravelled, l);
 	}
 
 	@Test

@@ -31,6 +31,7 @@ public class Layout {
 		data[0] = array;
 	}
 	
+	//helper method
 	public void print(){
 		int rows = rowCount();
 		int columns = columnCount();
@@ -42,6 +43,7 @@ public class Layout {
 		}
 	}
 	
+	//passed
 	//take each row and reverse it
 	//making the first column last and the last column first
 	public Layout reverse() {
@@ -57,19 +59,19 @@ public class Layout {
 		return new Layout(data_reversed);
 	}
 
+	//passed
 	public Layout rotateRight() {
 		//lol
 		return rotateLeft().rotateLeft().rotateLeft();
 	}
 
-	
+	//passed
 	public Layout rotateLeft() {
 		int rowCount = rowCount(); 
 		int columnCount = columnCount(); 
 		
 		int[][] dataRotated = new int [columnCount][rowCount]; 
 
-		
 		for(int i=0; i<rowCount; i++){		
 			for(int j=0; j<columnCount; j++){
 				int jReversed = columnCount - j - 1;
@@ -80,7 +82,7 @@ public class Layout {
 		return new Layout(dataRotated);
 	}
 
-	//selah
+	//passed
 	public Layout transpose() {
 		int rowCount = rowCount(); 
 		int columnCount = columnCount(); 
@@ -98,11 +100,15 @@ public class Layout {
 
 	//selah
 	public Layout ravel(int n) {
+//		Takes a one-dimensional Layout of m × n numbers and returns a two-dimensional Layout of m rows and n columns. 
+//		The first n numbers of the given Layout are copied into the first row of the new Layout, the second n numbers into the second row, and so on. 
+//		This method throws an IllegalArgumentException if the length of the input Layout is not evenly divisible by n.
 			return null;	
 	}
 	
 	//selah
 	public Layout unravel() {
+//		Takes a m by n two dimensional Layout and returns a one-dimensional Layout of size m × n containing the same numbers. The first n numbers of the new Layout are copied from the first row of the given Layout, the second n numbers from the second row, and so on.
 		return null;		
 	}
 	
