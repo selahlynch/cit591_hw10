@@ -109,7 +109,12 @@ public class Layout {
 		else if(columnCount() % n != 0){
 			throw new IllegalArgumentException("array length must be divisible by ravel parameter");
 		}
-
+		
+		if (columnCount() == 0) {
+			int[][] array = new int[n][0];
+			return new Layout(array);
+		}
+		
 		//initialize ravelled array
 		int newRowCount = columnCount()/n;
 		int newColumnCount = n;		
@@ -305,7 +310,7 @@ public class Layout {
 			return this.unravel().toArray1D();
 		} else {
 			int[] array1D = new int[this.columnCount()];
-			System.arraycopy( data, 0, array1D, 0, columnCount());
+			System.arraycopy( data[0], 0, array1D, 0, columnCount());
 			return array1D;
 		}
 	}

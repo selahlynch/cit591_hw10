@@ -18,7 +18,7 @@ public class LayoutTest {
 	
 	int[][] array2D = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 	int[] array1D = {1, 2, 3};
-	int[][] array2DEmpty = {{}, {}};
+	int[][] array2DEmpty = {{}, {}}; 
 	int[] array1DEmpty = {};
 	
 	Layout layout;
@@ -167,6 +167,7 @@ public class LayoutTest {
 //		l.ravel(4).print();
 
 		assertEquals(lRavelled, l.ravel(4));
+		assertEquals(l1DEmpty.ravel(2), l2DEmpty); //{{}} ravel(2) gives {{}, {}}
 	}
 
 	@Test
@@ -183,7 +184,8 @@ public class LayoutTest {
 		lUnravelled.print();
 		l.unravel().print();
 
-		assertEquals(lUnravelled, l.unravel());
+		assertEquals(lUnravelled, l.unravel()); 
+		assertEquals(l2DEmpty.unravel(), l1DEmpty);
 	}
 
 	@Test
@@ -363,8 +365,8 @@ public class LayoutTest {
 
 	@Test
 	public void testToArray1D() {
-		int[] layoutTo1D = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-		assertArrayEquals(layoutTo1D, layout.toArray1D());
+		int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+		assertArrayEquals(array, layout.toArray1D());
 		assertArrayEquals(array1D, l1D.toArray1D()); 
 		assertArrayEquals(array1DEmpty, l1DEmpty.toArray1D());
 		assertArrayEquals(array1DEmpty, l2DEmpty.toArray1D());
