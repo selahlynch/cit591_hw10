@@ -41,6 +41,7 @@ public class Layout {
 			}
 			System.out.print("\n");
 		}
+		System.out.print("\n");
 	}
 	
 	//passed
@@ -100,16 +101,46 @@ public class Layout {
 
 	//selah
 	public Layout ravel(int n) {
-//		Takes a one-dimensional Layout of m × n numbers and returns a two-dimensional Layout of m rows and n columns. 
-//		The first n numbers of the given Layout are copied into the first row of the new Layout, the second n numbers into the second row, and so on. 
-//		This method throws an IllegalArgumentException if the length of the input Layout is not evenly divisible by n.
-			return null;	
+
+		//check if this array is appropriate for ravelling
+		if(rowCount() != 1){
+			throw new IllegalArgumentException("ravel can only be run on one dimensional arrays");
+		}
+		else if(columnCount() % n != 0){
+			throw new IllegalArgumentException("array length must be divisible by ravel parameter");
+		}
+
+		//initialize ravelled array
+		int newRowCount = columnCount()/n;
+		int newColumnCount = n;		
+		int[][] ravelledData = new int[newRowCount][newColumnCount];
+
+		//fill ravelled array with data
+		for(int i=0; i<columnCount(); i++){
+			int newRow = i / n;
+			int newColumn = i % n;			
+			ravelledData[newRow][newColumn] = data[0][i]; 
+		}
+		
+		return new Layout(ravelledData);	
 	}
 	
 	//selah
 	public Layout unravel() {
-//		Takes a m by n two dimensional Layout and returns a one-dimensional Layout of size m × n containing the same numbers. The first n numbers of the new Layout are copied from the first row of the given Layout, the second n numbers from the second row, and so on.
-		return null;		
+
+		//initialize unravelled array
+		int newRowCount = 1;
+		int newColumnCount = rowCount()*columnCount();
+		int[][] unravelledData = new int[newRowCount][newColumnCount];
+
+		//fill unravelled array with data
+		for(int i=0; i<newColumnCount; i++){
+			int oldRow = i / columnCount();
+			int oldColumn = i % columnCount();			
+			 unravelledData[0][i] = data[oldRow][oldColumn]; 
+		}
+		
+		return new Layout(unravelledData);	
 	}
 	
 	//selah

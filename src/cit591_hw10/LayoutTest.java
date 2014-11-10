@@ -162,7 +162,11 @@ public class LayoutTest {
 		};
 		Layout l = new Layout(array);
 		Layout lRavelled = new Layout(ravelledArray);
-		assertEquals(lRavelled, l);
+
+//		lRavelled.print();
+//		l.ravel(4).print();
+
+		assertEquals(lRavelled, l.ravel(4));
 	}
 
 	@Test
@@ -175,7 +179,11 @@ public class LayoutTest {
 		int[][] unravelledArray = {{1,2,3,4,5,6,7,8,9,10,11,12}};
 		Layout l = new Layout(array);
 		Layout lUnravelled = new Layout(unravelledArray);
-		assertEquals(lUnravelled, l);
+
+		lUnravelled.print();
+		l.unravel().print();
+
+		assertEquals(lUnravelled, l.unravel());
 	}
 
 	@Test
