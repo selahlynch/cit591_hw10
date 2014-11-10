@@ -143,9 +143,12 @@ public class Layout {
 		return new Layout(unravelledData);	
 	}
 	
-	//selah
+	//tests not run yet
 	public Layout reshape(int n) {
-		return null;		
+		if(rowCount() * columnCount() % n != 0 || n <= 0) {
+			throw new IllegalArgumentException("The layout can't be evenly distributed to the given number of columns");
+		}
+		return this.unravel().ravel(n);
 	}
 	
 	//Dichen, passed!

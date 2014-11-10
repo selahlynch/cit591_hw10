@@ -188,7 +188,19 @@ public class LayoutTest {
 
 	@Test
 	public void testReshape() {
-		fail("Not yet implemented");
+		int[][] array = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 0, 11, 12}};
+		int[][] array2 = {{1, 2, 3, 4, 5, 6}, {7, 8, 9, 0, 11, 12}};
+		int[][] array3 = {{1}, {2}, {3}};
+		Layout l2D = new Layout(array);
+		assertEquals(l2D.reshape(6), new Layout(array2));
+		assertEquals(l1D.reshape(1), new Layout(array3));
+		assertEquals(l2DEmpty.reshape(1), l1DEmpty); 
+		//{{}, {}} reshape to {{}}, not sure whether we should consider this extreme case or not!
+		
+		//test exception
+		exception.expect(IllegalArgumentException.class);
+		layout.reshape(4);
+		layout.reshape(0);
 	}
 
 	@Test
