@@ -1,4 +1,7 @@
-package cit591_hw10;
+//class Layout
+//by Dichen Li & Selah Lynch
+
+package layout;
 
 import java.util.Arrays;
 
@@ -6,18 +9,15 @@ public class Layout {
 	
 	final int[][] data;
 	
-	//passed
 	public Layout(int[][] array){
 		data = array;
 	}
 	
-	//passed
 	public Layout(int[] array){
 		data = new int[1][];
 		data[0] = array;
 	}
 	
-	//passed
 	public Layout(int length){
 		if (length < 0) {
 			throw new IllegalArgumentException("Array length must be positive");
@@ -31,7 +31,7 @@ public class Layout {
 		data[0] = array;
 	}
 	
-	//helper method
+	//helper method for debugging 
 	public void print(){
 		int rows = rowCount();
 		int columns = columnCount();
@@ -44,7 +44,6 @@ public class Layout {
 		System.out.print("\n");
 	}
 	
-	//passed
 	//take each row and reverse it
 	//making the first column last and the last column first
 	public Layout reverse() {
@@ -60,13 +59,10 @@ public class Layout {
 		return new Layout(data_reversed);
 	}
 
-	//passed
 	public Layout rotateRight() {
-		//lol
 		return rotateLeft().rotateLeft().rotateLeft();
 	}
 
-	//passed
 	public Layout rotateLeft() {
 		int rowCount = rowCount(); 
 		int columnCount = columnCount(); 
@@ -83,7 +79,6 @@ public class Layout {
 		return new Layout(dataRotated);
 	}
 
-	//passed
 	public Layout transpose() {
 		int rowCount = rowCount(); 
 		int columnCount = columnCount(); 
@@ -99,7 +94,6 @@ public class Layout {
 		return new Layout(dataRotated);
 	}
 
-	//passed
 	public Layout ravel(int n) {
 
 		//check if this array is appropriate for ravelling
@@ -130,7 +124,6 @@ public class Layout {
 		return new Layout(ravelledData);	
 	}
 	
-	//passed
 	public Layout unravel() {
 
 		//initialize unravelled array
@@ -148,7 +141,6 @@ public class Layout {
 		return new Layout(unravelledData);	
 	}
 	
-	//tests not run yet
 	public Layout reshape(int n) {
 		if(rowCount() * columnCount() % n != 0 || n <= 0) {
 			throw new IllegalArgumentException("The layout can't be evenly distributed to the given number of columns");
@@ -156,7 +148,6 @@ public class Layout {
 		return this.unravel().ravel(n);
 	}
 	
-	//Dichen, passed!
 	public Layout join(Layout layout) {
 		if (layout.rowCount() != this.rowCount()) {
 			throw new IllegalArgumentException("The row numbers are different!");
@@ -181,7 +172,6 @@ public class Layout {
 		return joined;
 	}
 	
-	//Dichen, passed!
 	public Layout stack(Layout layout) {
 		if (layout.columnCount() != this.columnCount()) {
 			throw new IllegalArgumentException("The column numbers are different!");
@@ -201,17 +191,14 @@ public class Layout {
 		return new Layout(array);
 	}
 	
-	//test passed!
 	public int rowCount() {
 		return data.length;		
 	}
 	
-	//test passed!
 	public int columnCount(){
 		return data[0].length;		
 	}
 	
-	//Dichen passed
 	public Layout rows(int firstRow, int lastRow) {
 		if (firstRow > rowCount() || lastRow > rowCount()) {
 			throw new IllegalArgumentException("rows out of bond");	
@@ -226,7 +213,6 @@ public class Layout {
 		return new Layout(newArray);
 	}
 	
-	//Dichen passed
 	public Layout columns(int firstColumn, int lastColumn) {
 		if (firstColumn > columnCount() || lastColumn > columnCount()) {
 			throw new IllegalArgumentException("Columns out of bond");	
@@ -244,12 +230,10 @@ public class Layout {
 		return new Layout(newArray);
 	}
 	
-	//Dichen passed
 	public Layout slice(int firstRow, int lastRow, int firstColumn, int lastColumn) {
 		return this.rows(firstRow, lastRow).columns(firstColumn, lastColumn);	
 	}
 	
-	//Dichen passsed
 	public Layout replace(Layout layout, int row, int column) {
 		if (row > this.rowCount() || row < 0) {
 			throw new IllegalArgumentException("Rows out of bond");
@@ -266,9 +250,7 @@ public class Layout {
 		} 
 		return new Layout(newArray);
 	}
-	
-	
-	//Selah
+		
 	@Override
 	public boolean equals(Object o){
 		if(!(o instanceof Layout)){
@@ -294,13 +276,11 @@ public class Layout {
 		return true;
 	}
 
-	//Selah
 	@Override
 	public int hashCode(){
 		return Arrays.deepHashCode(data);
 	}
 
-	//Dichen, requires unravel()
 	public int[] toArray1D() {
 		if (this.rowCount() <= 0) {
 			return null;
@@ -315,7 +295,6 @@ public class Layout {
 		}
 	}
 	
-	//Dichen, passed!
 	public int[][] toArray2D() {
 		int[][] array = new int[rowCount()][columnCount()];
 		for (int i = 0; i < rowCount(); i++) {
@@ -324,7 +303,6 @@ public class Layout {
 		return array;
 	}
 	
-	//Dichen, passed!
 	public int at(int row, int column) {
 		return data[row][column];
 	}
