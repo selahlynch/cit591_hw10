@@ -10,16 +10,24 @@ public class Layout {
 	final int[][] data;
 	
 	public Layout(int[][] array){
+		if (array.length <= 0) {
+			throw new IllegalArgumentException("Array length must be positive");
+		} else if (array[0].length <= 0) {
+			throw new IllegalArgumentException("Array length must be positive");
+		}
 		data = array;
 	}
 	
 	public Layout(int[] array){
+		if (array.length <= 0) {
+			throw new IllegalArgumentException("Array length must be positive");
+		}
 		data = new int[1][];
 		data[0] = array;
 	}
 	
 	public Layout(int length){
-		if (length < 0) {
+		if (length <= 0) {
 			throw new IllegalArgumentException("Array length must be positive");
 		}
 		
@@ -304,7 +312,11 @@ public class Layout {
 	}
 	
 	public int at(int row, int column) {
-		return data[row][column];
+		if (row < 0 || row >= this.rowCount()) {
+			throw new IllegalArgumentException("row out of bound");
+		} else if (column < 0 || column >= this.columnCount()) {
+			throw new IllegalArgumentException("column out of bound");
+		} else return data[row][column];
 	}
 
 }

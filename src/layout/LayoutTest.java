@@ -30,8 +30,8 @@ public class LayoutTest {
 	public void setUp() throws Exception {
 		layout = new Layout(array2D);
 		l1D = new Layout(array1D);
-		l2DEmpty = new Layout(array2DEmpty);
-		l1DEmpty = new Layout(array1DEmpty);
+		//l2DEmpty = new Layout(array2DEmpty);
+		//l1DEmpty = new Layout(array1DEmpty);
 	}
 
 	@Test
@@ -47,9 +47,10 @@ public class LayoutTest {
 	public void testLayoutIntArrayArray() {
 		layout = new Layout(array2D);
 		assertArrayEquals(array2D, layout.data);
+		exception.expect(IllegalArgumentException.class);
 		l2DEmpty = new Layout(array2DEmpty);
-		assertArrayEquals(array1DEmpty, l2DEmpty.data[0]);
-		assertEquals(2, l2DEmpty.data.length);
+//		assertArrayEquals(array1DEmpty, l2DEmpty.data[0]);
+//		assertEquals(2, l2DEmpty.data.length);
 	}
 
 	@Test
@@ -57,9 +58,10 @@ public class LayoutTest {
 		layout = new Layout(array1D);
 		assertEquals(1, layout.data.length);
 		assertEquals(array1D, layout.data[0]);
+		exception.expect(IllegalArgumentException.class);
 		l1DEmpty = new Layout(array1DEmpty);
-		assertEquals(1, l1DEmpty.data.length);
-		assertArrayEquals(array1DEmpty, l1DEmpty.data[0]);
+//		assertEquals(1, l1DEmpty.data.length);
+//		assertArrayEquals(array1DEmpty, l1DEmpty.data[0]);
 	}
 
 	@Test
@@ -71,8 +73,9 @@ public class LayoutTest {
 		}
 		
 		//when input is 0, special case
+		exception.expect(IllegalArgumentException.class);
 		layout = new Layout(0);
-		assertArrayEquals(array1DEmpty, layout.data[0]);
+//		assertArrayEquals(array1DEmpty, layout.data[0]);
 	}
 
 
@@ -164,7 +167,7 @@ public class LayoutTest {
 		Layout lRavelled = new Layout(ravelledArray);
 
 		assertEquals(lRavelled, l.ravel(4));
-		assertEquals(l1DEmpty.ravel(2), l2DEmpty); //{{}} ravel(2) gives {{}, {}}
+//		assertEquals(l1DEmpty.ravel(2), l2DEmpty); //{{}} ravel(2) gives {{}, {}}
 	}
 	
 	@Test
@@ -201,7 +204,7 @@ public class LayoutTest {
 		l.unravel().print();
 
 		assertEquals(lUnravelled, l.unravel()); 
-		assertEquals(l2DEmpty.unravel(), l1DEmpty);
+//		assertEquals(l2DEmpty.unravel(), l1DEmpty);
 	}
 
 	@Test
@@ -212,7 +215,7 @@ public class LayoutTest {
 		Layout l2D = new Layout(array);
 		assertEquals(l2D.reshape(6), new Layout(array2));
 		assertEquals(l1D.reshape(1), new Layout(array3));
-		assertEquals(l2DEmpty.reshape(1), l1DEmpty); 
+//		assertEquals(l2DEmpty.reshape(1), l1DEmpty); 
 		//{{}, {}} reshape to {{}}, not sure whether we should consider this extreme case or not!
 		
 		//test exception
@@ -230,10 +233,10 @@ public class LayoutTest {
 		assertArrayEquals(layout3.data, array3);
 		
 		//when join empty array with another empty one, result should still be empty
-		Layout layoutEmpty = new Layout(array1DEmpty);
-		Layout joinEmpty = l1DEmpty.join(layoutEmpty);
-		assertEquals(1, joinEmpty.data.length);
-		assertArrayEquals(joinEmpty.data[0], array1DEmpty);
+//		Layout layoutEmpty = new Layout(array1DEmpty);
+//		Layout joinEmpty = l1DEmpty.join(layoutEmpty);
+//		assertEquals(1, joinEmpty.data.length);
+//		assertArrayEquals(joinEmpty.data[0], array1DEmpty);
 		
 		//two arrays have different rows
 		//There are three ways to test expected exception, see: 
@@ -274,10 +277,10 @@ public class LayoutTest {
 		assertArrayEquals(layout3.data, array3);
 		
 		//when stack empty array with another empty one, result should be {{}, {}}
-		Layout layoutEmpty = new Layout(array1DEmpty);
-		Layout joinEmpty = l1DEmpty.stack(layoutEmpty);
-		int[][] stackArray = {{}, {}};
-		assertArrayEquals(joinEmpty.data, stackArray);
+//		Layout layoutEmpty = new Layout(array1DEmpty);
+//		Layout joinEmpty = l1DEmpty.stack(layoutEmpty);
+//		int[][] stackArray = {{}, {}};
+//		assertArrayEquals(joinEmpty.data, stackArray);
 		
 		//when two arrays have different columns
 		exception.expect(IllegalArgumentException.class);
@@ -290,8 +293,8 @@ public class LayoutTest {
 	public void testRowCount() {
 		assertEquals(3 , layout.rowCount());
 		assertEquals(1, l1D.rowCount());
-		assertEquals(2, l2DEmpty.rowCount());
-		assertEquals(1, l1DEmpty.rowCount());
+//		assertEquals(2, l2DEmpty.rowCount());
+//		assertEquals(1, l1DEmpty.rowCount());
 	}
 
 
@@ -299,8 +302,8 @@ public class LayoutTest {
 	public void testColumnCount() {
 		assertEquals(3, layout.columnCount());
 		assertEquals(3, l1D.columnCount());
-		assertEquals(0, l2DEmpty.columnCount());
-		assertEquals(0, l1DEmpty.columnCount());
+//		assertEquals(0, l2DEmpty.columnCount());
+//		assertEquals(0, l1DEmpty.columnCount());
 	}
 
 	@Test
@@ -308,7 +311,7 @@ public class LayoutTest {
 		int[][] a1 = {{4, 5, 6}, {7, 8, 9}};
 		assertEquals(new Layout(a1), layout.rows(1, 2));
 		assertEquals(l1D, layout.rows(0, 0));
-		assertEquals(l1DEmpty, l2DEmpty.rows(1, 1));
+//		assertEquals(l1DEmpty, l2DEmpty.rows(1, 1));
 		
 		//error assertions
 		exception.expect(IllegalArgumentException.class);
@@ -384,23 +387,25 @@ public class LayoutTest {
 		int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 		assertArrayEquals(array, layout.toArray1D());
 		assertArrayEquals(array1D, l1D.toArray1D()); 
-		assertArrayEquals(array1DEmpty, l1DEmpty.toArray1D());
-		assertArrayEquals(array1DEmpty, l2DEmpty.toArray1D());
+//		assertArrayEquals(array1DEmpty, l1DEmpty.toArray1D());
+//		assertArrayEquals(array1DEmpty, l2DEmpty.toArray1D());
 	}
 
 	@Test
 	public void testToArray2D() {
 		assertArrayEquals(layout.toArray2D(), array2D);
 		//when it's empty layout
-		int[][] arrayEmpty = {{}};
-		assertArrayEquals(l1DEmpty.toArray2D(), arrayEmpty);
+//		int[][] arrayEmpty = {{}};
+//		assertArrayEquals(l1DEmpty.toArray2D(), arrayEmpty);
 	}
 
 	@Test
 	public void testAt() {
 		assertEquals(1, layout.at(0, 0));
-		exception.expect(ArrayIndexOutOfBoundsException.class);
-		l1DEmpty.at(0, 0); // l1DEmpty == {{}};
+		exception.expect(IllegalArgumentException.class);
+		layout.at(3, 0);
+		layout.at(0, 3);
+//		l1DEmpty.at(0, 0); // l1DEmpty == {{}};
 	}
 
 }
